@@ -1,6 +1,7 @@
 import { RouterProvider } from "react-router-dom"
 import router from "./router/Routes"
-import './app.css'
+import './login_register.css'
+import './chat.css'
 
 const App = () => {
     return (
