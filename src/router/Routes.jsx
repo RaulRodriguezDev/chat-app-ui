@@ -31,4 +31,7 @@ const router = createBrowserRouter([
     }
 ])
 
+const test = () => console.log('test')
+
+test
 export default router
