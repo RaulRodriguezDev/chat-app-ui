@@ -1,37 +1,29 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import Chat from "../pages/Chat";
-import AuthLayout from "../layout/AuthLayout";
+import { useRoutes } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import AuthContext from "../auth/AuthContext";
+import { publicRoutes } from "./PublicRoutes";
+import { privateRoutes } from "./PrivateRoutes";
+
+const Routes = ( ) => {
+    const { auth, checkToken } = useContext(AuthContext)
+
+    const routes = useRoutes([
+        privateRoutes(auth),
+        publicRoutes(auth),
+    ])
+
+    useEffect(() => {
+
+        checkToken()
+
+    },[checkToken])
+
+    return (
+        <>
+            {routes}
+        </>
+    )
+}
 
 
-const router = createBrowserRouter([
-    {
-        element: <Chat/>,
-        path: '/'
-    },
-    {
-        element: <AuthLayout/>,
-        path: '/auth',
-        children:[
-            {
-                element: <Login/>,
-                path:'login'
-            },
-            {
-                element: <Register/>,
-                path:'register',
-            },
-            {
-                element: <Navigate to="/auth/login"/>,
-                path:'*'
-            }
-        ],
-        
-    }
-])
-
-const test = () => console.log('test')
-
-test
-export default router
+export default Routes

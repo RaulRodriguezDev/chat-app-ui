@@ -1,16 +1,37 @@
-import { Route, Navigate } from "react-router-dom"
-import propTypes from "prop-types"
+import AuthLayout from "../layout/AuthLayout"
+import Login from "../pages/Login"
+import Register from "../pages/Register"
+import { Navigate } from "react-router-dom"
 
-const PublicRoutes = ({ isAuthenticated, component: Component, ...props}) => {
-    console.log(props)
-    return (
-        <Component {...props}/>
-    )
+const publicRoutes = (auth) => {
+    return !auth.logged ? {
+        element: <AuthLayout/>,
+        path: '/auth',
+        children:[
+            {
+                element: <Login/>,
+                path:'login'
+            },
+            {
+                element: <Register/>,
+                path:'register',
+            },
+            {
+                element: <Navigate to="/auth/login"/>,
+                path:'*'
+            }
+        ],
+        
+    }
+    : {
+        path: '/auth',
+        children:[
+            {
+                element: <Navigate to="/"/>,
+                path:'*'
+            }
+        ]
+    }
 }
 
-PublicRoutes.propTypes = {
-    isAuthenticated: propTypes.bool,
-    component: propTypes.node
-}
-
-export default PublicRoutes
+export {publicRoutes}
