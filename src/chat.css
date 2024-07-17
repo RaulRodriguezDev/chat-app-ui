@@ -126,7 +126,6 @@ img {
 
 .inbox_chat {
     height: 100vh;
-    overflow-y: scroll;
 }
 
 .active_chat {
@@ -245,5 +244,19 @@ textarea {
     top: 40%;
     right: 0;
     width: 60%;
+    text-align: center;
+}
+
+.no-conversation-panel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.no-conversation-panel-header{
+    color: var(--root-app-color-100);
+    background-color: var(--root-app-color-800);
+    display: inline-block;
+    width: 100%;
     text-align: center;
 }

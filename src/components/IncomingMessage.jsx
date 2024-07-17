@@ -1,4 +1,9 @@
-const IncomingMessage = () => {
+import propTypes from 'prop-types'
+import formatDate from '../helpers/formatDate'
+
+const IncomingMessage = ({ message }) => {
+    const { content } = message
+    const customDate = formatDate(message.createdAt)
     return (
         <div className="incoming_msg">
             <div className="incoming_msg_img">
@@ -6,13 +11,15 @@ const IncomingMessage = () => {
             </div>
             <div className="received_msg">
                 <div className="received_withd_msg">
-                    <p>Test which is a new approach to have all
-                        solutions</p>
-                    <span className="time_date"> 11:01 AM | June 9</span>
+                    <p>{content}</p>
+                    <span className="time_date">{customDate}</span>
                 </div>
             </div>
         </div>
     )
 }
 
+IncomingMessage.propTypes = {
+    message: propTypes.object
+}
 export default IncomingMessage

@@ -1,6 +1,7 @@
-import { createContext, useCallback, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 import propTypes from "prop-types";
 import { fetchAuth, fetchNoAuth } from "../helpers/fetch";
+import { ChatContext } from "../context/chat/ChatContext";
 
 const AuthContext = createContext()
 
@@ -14,6 +15,7 @@ const initialState = {
 
 const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState(initialState)
+    const { dispatch } = useContext(ChatContext)
 
     const login = async ( email, password ) => {
         const response = await fetchNoAuth('auth/login', { email, password }, 'POST')
@@ -99,6 +101,10 @@ const AuthProvider = ({ children }) => {
         setAuth({
             checking: false,
             logged: false,
+        })
+
+        dispatch({
+            type: 'closeSession'
         })
     }
 
